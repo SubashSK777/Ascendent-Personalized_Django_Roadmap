@@ -1,20 +1,37 @@
 {
-  "name": "aflick-minimal",
+  "name": "ascendant-protocol",
   "version": "1.0.0",
-  "private": true,
+  "description": "Ascendant: The Django Backend Protocol — Elite Career Roadmap Tracker",
+  "main": "main.js",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
+    "start": "electron .",
+    "dev": "electron . --enable-logging",
+    "package": "npx electron-packager . Ascendant --platform=win32 --arch=x64 --out=dist --overwrite"
   },
-  "dependencies": {
-    "next": "14.2.22",
-    "react": "18.3.1",
-    "react-dom": "18.3.1"
-  },
+  "keywords": [
+    "electron",
+    "roadmap",
+    "django",
+    "career",
+    "tracker"
+  ],
+  "license": "MIT",
   "devDependencies": {
-    "tailwindcss": "^3.4.0",
-    "postcss": "^8",
-    "autoprefixer": "^10"
+    "electron": "^29.4.6",
+    "electron-builder": "^26.8.1",
+    "electron-packager": "^17.1.2"
+  },
+  "build": {
+    "appId": "com.ascendant.protocol",
+    "productName": "Ascendant The Django Backend Protocol",
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ]
+    }
   }
 }

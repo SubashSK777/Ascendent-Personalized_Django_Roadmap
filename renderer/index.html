@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob:; connect-src 'none';" />
+  <title>Subash's Protocol: The Django Backend Journey</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <script src="js/chart.min.js"></script>
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="js/welcome.js" defer></script>
+</head>
+<body>
+
+  <!-- ═══ CUSTOM TITLE BAR ═════════════════════════════════════════════════ -->
+  <div class="titlebar" id="titlebar">
+    <div class="titlebar-left">
+      <div class="titlebar-logo">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+          <polygon points="9,1 17,5.5 17,12.5 9,17 1,12.5 1,5.5" fill="none" stroke="var(--cyan)" stroke-width="1.5"/>
+          <polygon points="9,5 13,7.5 13,12 9,14 5,12 5,7.5" fill="var(--cyan)" opacity="0.3"/>
+        </svg>
+      </div>
+      <span class="titlebar-title">SUBASH'S ASCENDANT</span>
+      <span class="titlebar-subtitle">· THE DJANGO BACKEND PROTOCOL</span>
+    </div>
+    <div class="window-controls">
+      <button id="btn-minimize" class="wc-btn wc-minimize" title="Minimize">─</button>
+      <button id="btn-maximize" class="wc-btn wc-maximize" title="Maximize">□</button>
+      <button id="btn-close"    class="wc-btn wc-close"    title="Close">✕</button>
+    </div>
+  </div>
+
+  <!-- ═══ APP LAYOUT ═══════════════════════════════════════════════════════ -->
+  <div class="app-layout">
+
+    <!-- ── SIDEBAR ─────────────────────────────────────────────────────── -->
+    <nav class="sidebar" id="sidebar">
+      <!-- Brand -->
+      <div class="sidebar-brand">
+        <div class="brand-hex">
+          <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+            <polygon id="brand-hex-outer" points="22,2 40,12 40,32 22,42 4,32 4,12" fill="none" stroke="var(--cyan)" stroke-width="1.5"/>
+            <polygon id="brand-hex-inner" points="22,10 33,16.5 33,27.5 22,34 11,27.5 11,16.5" fill="var(--cyan)" opacity="0.15"/>
+            <text x="22" y="26" text-anchor="middle" fill="var(--cyan)" font-size="12" font-weight="700" font-family="Rajdhani">DB</text>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <div class="brand-name">SUBASH</div>
+          <div class="brand-tagline">Django Backend Protocol</div>
+        </div>
+      </div>
+
+      <!-- Overall Progress Ring -->
+      <div class="sidebar-progress">
+        <div class="progress-ring-wrap">
+          <svg class="progress-ring" width="80" height="80" viewBox="0 0 80 80">
+            <circle class="ring-track" cx="40" cy="40" r="34" />
+            <circle class="ring-fill" id="ring-fill" cx="40" cy="40" r="34" />
+          </svg>
+          <div class="ring-label">
+            <span class="ring-pct" id="ring-pct">0%</span>
+            <span class="ring-sub">Complete</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <ul class="nav-list">
+        <li class="nav-item active" data-page="welcome">
+          <span class="nav-icon">
+            <svg width="17" height="17" viewBox="0 0 17 17" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8.5 2L2 7v8a2 2 0 002 2h9a2 2 0 002-2V7L8.5 2z"/><path d="M9 17V9H8v8"/></svg>
+          </span>
+          <span class="nav-label">The Genesis</span>
+        </li>
+        <li class="nav-item" data-page="dashboard">
+          <span class="nav-icon">
+            <svg width="17" height="17" viewBox="0 0 17 17" fill="currentColor"><rect x="1" y="1" width="6" height="6" rx="1.5"/><rect x="10" y="1" width="6" height="6" rx="1.5"/><rect x="1" y="10" width="6" height="6" rx="1.5"/><rect x="10" y="10" width="6" height="6" rx="1.5"/></svg>
+          </span>
+          <span class="nav-label">Dashboard</span>
+        </li>
+        <li class="nav-item" data-page="roadmap">
+          <span class="nav-icon">
+            <svg width="17" height="17" viewBox="0 0 17 17" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="3" cy="3" r="2"/><circle cx="14" cy="8.5" r="2"/><circle cx="3" cy="14" r="2"/><line x1="5" y1="3" x2="12" y2="8.5"/><line x1="5" y1="14" x2="12" y2="8.5"/></svg>
+          </span>
+          <span class="nav-label">Skill Tree</span>
+        </li>
+        <li class="nav-item" data-page="analytics">
+          <span class="nav-icon">
+            <svg width="17" height="17" viewBox="0 0 17 17" fill="currentColor"><rect x="1" y="9" width="3" height="7"/><rect x="7" y="5" width="3" height="11"/><rect x="13" y="1" width="3" height="15"/></svg>
+          </span>
+          <span class="nav-label">Analytics</span>
+        </li>
+        <li class="nav-item" data-page="focus">
+          <span class="nav-icon">
+            <svg width="17" height="17" viewBox="0 0 17 17" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8.5" cy="8.5" r="7"/><polyline points="8.5,5 8.5,8.5 11,8.5"/></svg>
+          </span>
+          <span class="nav-label">Focus Mode</span>
+        </li>
+        <li class="nav-item" data-page="usaco">
+          <span class="nav-icon">
+            <svg width="17" height="17" viewBox="0 0 17 17" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="8.5,1.5 10.5,6.5 16,7 12,11 13.5,16 8.5,13 3.5,16 5,11 1,7 6.5,6.5"/></svg>
+          </span>
+          <span class="nav-label">USACO Hub</span>
+        </li>
+        <li class="nav-item" data-page="interviews">
+          <span class="nav-icon">
+            <svg width="17" height="17" viewBox="0 0 17 17" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="15" height="11" rx="2"/><line x1="5" y1="3" x2="5" y2="14"/><line x1="5" y1="8.5" x2="16" y2="8.5"/></svg>
+          </span>
+          <span class="nav-label">Mock Interviews</span>
+        </li>
+      </ul>
+
+      <!-- Sidebar Footer Stats -->
+      <div class="sidebar-stats">
+        <div class="stat-pill">
+          <span class="stat-pill-label">Hours Logged</span>
+          <span class="stat-pill-val" id="sb-hours">0h</span>
+        </div>
+        <div class="stat-pill">
+          <span class="stat-pill-label">This Week</span>
+          <span class="stat-pill-val" id="sb-week">0h</span>
+        </div>
+        <div class="stat-pill">
+          <span class="stat-pill-label">Current Phase</span>
+          <span class="stat-pill-val" id="sb-phase">P0</span>
+        </div>
+        <div class="stat-pill" id="btn-reset-protocol" style="cursor:pointer; background:rgba(255,0,0,0.1); border-color:rgba(255,0,0,0.2); margin-top:10px;">
+          <span class="stat-pill-label" style="color:#ff5555; text-align:center; width:100%;">Reset Protocol Data</span>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ── MAIN CONTENT ────────────────────────────────────────────────── -->
+    <main class="main-content" id="main-content">
+
+      <!-- ═══ PAGE: THE GENESIS (WELCOME) ════════════════════════════════ -->
+      <section id="page-welcome" class="page active">
+        <div class="genesis-container">
+          <div class="genesis-slide-wrap" id="genesis-slides">
+            <!-- Slide 1: Mission -->
+            <div class="genesis-slide active" id="slide-1">
+              <div class="glow-bg"></div>
+              <div class="slide-content">
+                <div class="glitch-text" data-text="GENESIS PROTOCOL">GENESIS PROTOCOL</div>
+                <h1 class="slide-title">Why this Path?</h1>
+                <p class="slide-desc">Online roadmaps were shallow. Static PDFs were uninspiring. The Django Backend Protocol is built for the 0.1% who want more than just a job—they want mastery.</p>
+                <div class="slide-meta">
+                  <span class="meta-tag">Personalized: Subash</span>
+                  <span class="meta-tag">Directives: 28 Nodes</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 2: Why Django -->
+            <div class="genesis-slide" id="slide-2">
+              <div class="slide-content">
+                <div class="slide-icon">🐍</div>
+                <h1 class="slide-title">Why Django?</h1>
+                <p class="slide-desc">It's "The Web Framework for Perfectionists with Deadlines." In a world of fragmented JS frameworks, Django remains a monolith of stability, security, and industrial-grade scalability.</p>
+                <div class="slide-footer">
+                  <div class="stat-item"><span>Performance</span><div class="stat-bar"><div style="width: 85%"></div></div></div>
+                  <div class="stat-item"><span>Security</span><div class="stat-bar"><div style="width: 95%"></div></div></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 3: Why USACO -->
+            <div class="genesis-slide" id="slide-3">
+              <div class="slide-content">
+                <div class="slide-icon">🏆</div>
+                <h1 class="slide-title">USACO vs LeetCode</h1>
+                <p class="slide-desc">LeetCode tests patterns. USACO tests problem-solving under pressure. We choose USACO Platinum rigor because we don't just solve problems—we engineer solutions.</p>
+                <div class="slide-card">
+                  <div class="pill">Algorithmic Depth</div>
+                  <div class="pill">Strategic Rigor</div>
+                </div>
+              </div>
+            </div>
+            
+             <!-- Slide 4: Final Call -->
+            <div class="genesis-slide" id="slide-4">
+              <div class="slide-content">
+                <div class="slide-icon">🚀</div>
+                <h1 class="slide-title">Initialization Complete</h1>
+                <p class="slide-desc">Ready to begin your ascent, Subash? The Power Core is primed. Your roadmap is waiting.</p>
+                <button class="btn-primary" id="btn-enter-protocol">ENTER PROTOCOL</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="genesis-controls">
+            <button class="g-control" id="g-prev">←</button>
+            <div class="g-dots" id="g-dots">
+              <span class="g-dot active"></span>
+              <span class="g-dot"></span>
+              <span class="g-dot"></span>
+              <span class="g-dot"></span>
+            </div>
+            <button class="g-control" id="g-next">→</button>
+          </div>
+          
+          <div class="g-skip">
+            <span id="btn-skip-genesis">Skip Introduction // Dashboard</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══ PAGE: DASHBOARD ═══════════════════════════════════════════ -->
+      <section id="page-dashboard" class="page">
+        <div class="page-header">
+          <h1 class="page-title">Subash's Core</h1>
+          <div class="page-subtitle">Engine of Progress · The Django Backend Protocol</div>
+        </div>
+
+        <div class="dashboard-grid">
+          <!-- Power Core Canvas -->
+          <div class="card power-core-card">
+            <canvas id="power-core-canvas" width="320" height="320"></canvas>
+            <div class="core-overlay">
+              <div class="core-pct" id="core-pct">0%</div>
+              <div class="core-label">Protocol<br>Complete</div>
+            </div>
+          </div>
+
+          <!-- Stats Grid -->
+          <div class="stats-column">
+            <div class="stats-row">
+              <div class="stat-card">
+                <div class="stat-icon stat-cyan">⚡</div>
+                <div class="stat-body">
+                  <div class="stat-val" id="stat-total-hours">0h</div>
+                  <div class="stat-lbl">Total Hours Logged</div>
+                </div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-icon stat-green">✓</div>
+                <div class="stat-body">
+                  <div class="stat-val" id="stat-done-nodes">0/28</div>
+                  <div class="stat-lbl">Nodes Completed</div>
+                </div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-icon stat-purple">🏆</div>
+                <div class="stat-body">
+                  <div class="stat-val" id="stat-week-hours">0h</div>
+                  <div class="stat-lbl">Hours This Week</div>
+                </div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-icon stat-orange">🎯</div>
+                <div class="stat-body">
+                  <div class="stat-val" id="stat-remaining">1278h</div>
+                  <div class="stat-lbl">Hours Remaining</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Current Phase Card -->
+            <div class="card current-phase-card">
+              <div class="card-head">
+                <span class="card-head-label">CURRENT PHASE</span>
+                <span class="phase-badge" id="phase-badge">Phase 0</span>
+              </div>
+              <div class="phase-name" id="phase-name">The Baseline & Cognitive Load</div>
+              <div class="phase-nodes-list" id="phase-nodes-list">
+                <!-- populated by dashboard.js -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="card recent-activity-card">
+          <div class="card-head">
+            <span class="card-head-label">RECENT ACTIVITY</span>
+            <button class="btn-ghost" id="btn-log-quick">+ Log Session</button>
+          </div>
+          <div class="activity-list" id="activity-list">
+            <div class="empty-state">
+              <div class="empty-icon">⚡</div>
+              <div class="empty-text">No sessions logged yet.</div>
+              <div class="empty-sub">Begin your first study session to light the core.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══ PAGE: SKILL TREE / ROADMAP ═════════════════════════════════ -->
+      <section id="page-roadmap" class="page">
+        <div class="page-header">
+          <h1 class="page-title">The Ascendant Protocol</h1>
+          <div class="page-subtitle">Interactive Skill Tree · Click any node to explore</div>
+        </div>
+        <div class="roadmap-filters">
+          <div class="phase-tabs" id="phase-tabs">
+            <!-- phase tabs injected by roadmap.js -->
+          </div>
+          <div class="legend">
+            <span class="legend-dot legend-done"></span><span>Completed</span>
+            <span class="legend-dot legend-active"></span><span>Active</span>
+            <span class="legend-dot legend-locked"></span><span>Locked</span>
+          </div>
+        </div>
+        <div class="skill-tree-canvas-wrap" id="skill-tree-wrap">
+          <canvas id="skill-tree-canvas"></canvas>
+          <div id="skill-tree-nodes"></div>
+        </div>
+      </section>
+
+      <!-- ═══ PAGE: ANALYTICS ════════════════════════════════════════════ -->
+      <section id="page-analytics" class="page">
+        <div class="page-header">
+          <h1 class="page-title">Analytics</h1>
+          <div class="page-subtitle">Progress visualization · Hours & performance over time</div>
+        </div>
+        <div class="analytics-grid">
+          <div class="card chart-card chart-wide">
+            <div class="card-head"><span class="card-head-label">HOURS LOGGED · LAST 14 DAYS</span></div>
+            <canvas id="chart-daily-hours" height="120"></canvas>
+          </div>
+          <div class="card chart-card">
+            <div class="card-head"><span class="card-head-label">SESSION TYPE BREAKDOWN</span></div>
+            <canvas id="chart-log-type" height="200"></canvas>
+          </div>
+          <div class="card chart-card chart-wide">
+            <div class="card-head"><span class="card-head-label">PHASE COMPLETION</span></div>
+            <canvas id="chart-phase-progress" height="120"></canvas>
+          </div>
+          <div class="card chart-card">
+            <div class="card-head"><span class="card-head-label">CF RATING TRAJECTORY</span></div>
+            <canvas id="chart-cf-rating" height="200"></canvas>
+            <div class="chart-action">
+              <button class="btn-ghost btn-sm" id="btn-add-cf">+ Add Rating</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══ PAGE: FOCUS MODE ═══════════════════════════════════════════ -->
+      <section id="page-focus" class="page">
+        <div class="focus-container">
+          <div class="focus-node-selector">
+            <div class="card-head"><span class="card-head-label">FOCUSING ON</span></div>
+            <select id="focus-node-select" class="select-input">
+              <option value="">— Select a node —</option>
+            </select>
+          </div>
+
+          <div class="focus-timer-wrap">
+            <svg class="focus-timer-ring" viewBox="0 0 240 240" style="width: 100%; height: 100%;">
+              <circle class="ring-track" cx="120" cy="120" r="108"/>
+              <circle class="ring-fill" id="focus-ring-fill" cx="120" cy="120" r="108"/>
+            </svg>
+            <div class="focus-timer-overlay">
+              <div class="focus-time" id="focus-time">25:00</div>
+              <div class="focus-mode-label" id="focus-mode-label">FOCUS</div>
+            </div>
+          </div>
+
+          <div class="focus-controls">
+            <button class="btn-primary focus-btn" id="focus-start">▶  Start</button>
+            <button class="btn-ghost focus-btn" id="focus-reset">↺  Reset</button>
+          </div>
+
+          <div class="focus-pomodoro-settings">
+            <label>Focus <input type="number" id="focus-work-min" value="25" min="1" max="120" class="mini-input"> min</label>
+            <label>Break <input type="number" id="focus-break-min" value="5" min="1" max="30" class="mini-input"> min</label>
+          </div>
+
+          <div class="focus-session-count">
+            <div class="card-head"><span class="card-head-label">TODAY'S SESSIONS</span></div>
+            <div class="session-dots" id="session-dots"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══ PAGE: USACO HUB ═══════════════════════════════════════════ -->
+      <section id="page-usaco" class="page">
+        <div class="page-header">
+          <h1 class="page-title">USACO & DSA Hub</h1>
+          <div class="page-subtitle">Problem tracker · Codeforces rating · Gold-level mastery</div>
+        </div>
+        <div class="usaco-toolbar">
+          <div class="level-filter-group">
+            <button class="level-filter active" data-level="all">All</button>
+            <button class="level-filter" data-level="Bronze">🥉 Bronze</button>
+            <button class="level-filter" data-level="Silver">🥈 Silver</button>
+            <button class="level-filter" data-level="Gold">🥇 Gold</button>
+            <button class="level-filter" data-level="Platinum">💎 Platinum</button>
+          </div>
+          <button class="btn-primary btn-sm" id="btn-add-problem">+ Add Problem</button>
+        </div>
+        <div class="usaco-stats-row" id="usaco-stats-row">
+          <!-- injected by usaco.js -->
+        </div>
+        <div class="table-wrap">
+          <table class="data-table" id="problems-table">
+            <thead>
+              <tr>
+                <th>Problem</th>
+                <th>Level</th>
+                <th>Category</th>
+                <th>Difficulty</th>
+                <th>Status</th>
+                <th>Time Taken</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="problems-tbody">
+              <tr><td colspan="7" class="empty-td">No problems tracked yet. Add your first problem!</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ═══ PAGE: MOCK INTERVIEWS ══════════════════════════════════════ -->
+      <section id="page-interviews" class="page">
+        <div class="page-header">
+          <h1 class="page-title">Mock Interviews</h1>
+          <div class="page-subtitle">Track your performance · Target 8+/10 consistently</div>
+        </div>
+        <div class="interview-toolbar">
+          <div class="type-filter-group">
+            <button class="type-filter active" data-type="all">All</button>
+            <button class="type-filter" data-type="DSA">DSA</button>
+            <button class="type-filter" data-type="LLD">LLD</button>
+            <button class="type-filter" data-type="HLD">HLD</button>
+            <button class="type-filter" data-type="Behavioral">Behavioral</button>
+          </div>
+          <button class="btn-primary btn-sm" id="btn-add-interview">+ Log Interview</button>
+        </div>
+        <div class="interview-summary" id="interview-summary">
+          <!-- injected by interviews.js -->
+        </div>
+        <div class="table-wrap">
+          <table class="data-table" id="interviews-table">
+            <thead>
+              <tr><th>Date</th><th>Type</th><th>Interviewer</th><th>Score</th><th>Feedback</th></tr>
+            </thead>
+            <tbody id="interviews-tbody">
+              <tr><td colspan="5" class="empty-td">No interviews logged yet.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </main><!-- /main-content -->
+  </div><!-- /app-layout -->
+
+  <!-- ═══ MODAL: NODE DETAIL ════════════════════════════════════════════════ -->
+  <div class="modal-overlay" id="modal-node" role="dialog" aria-modal="true">
+    <div class="modal modal-node-detail">
+      <button class="modal-close" id="modal-node-close">✕</button>
+
+      <div class="modal-node-header">
+        <div class="modal-phase-tag" id="modal-phase-tag">Phase 0</div>
+        <h2 class="modal-node-title" id="modal-node-title">Node Title</h2>
+        <div class="modal-node-meta">
+          <span class="diff-badge" id="modal-diff-badge">Medium</span>
+          <span class="hours-badge" id="modal-hours-badge">0h estimated</span>
+        </div>
+      </div>
+
+      <div class="modal-tabs">
+        <button class="modal-tab active" data-tab="overview">Overview</button>
+        <button class="modal-tab" data-tab="hardcore">Hardcore</button>
+        <button class="modal-tab" data-tab="notes">Notes</button>
+        <button class="modal-tab" data-tab="log">Progress Log</button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Overview -->
+        <div class="modal-tab-panel active" id="tab-overview">
+          <div class="modal-section-label">DESCRIPTION</div>
+          <p class="modal-description" id="modal-description"></p>
+          <div class="modal-section-label">DEFINITION OF DONE</div>
+          <p class="modal-dod" id="modal-dod"></p>
+          <div class="modal-section-label" id="prereq-label">PREREQUISITES</div>
+          <div class="prereq-chips" id="modal-prereqs"></div>
+        </div>
+
+        <!-- Hardcore Element -->
+        <div class="modal-tab-panel" id="tab-hardcore">
+          <div class="hardcore-banner">
+            <div class="hardcore-icon">⚠</div>
+            <div class="hardcore-title">HARDCORE ELEMENT</div>
+          </div>
+          <p class="modal-hardcore-text" id="modal-hardcore-text"></p>
+        </div>
+
+        <!-- Notes -->
+        <div class="modal-tab-panel" id="tab-notes">
+          <div class="modal-section-label">YOUR NOTES (Markdown supported)</div>
+          <textarea class="notes-textarea" id="modal-notes-textarea" placeholder="Start typing your notes here…"></textarea>
+          <button class="btn-primary btn-sm" id="btn-save-notes" style="margin-top:12px;">Save Notes</button>
+        </div>
+
+        <!-- Progress Log -->
+        <div class="modal-tab-panel" id="tab-log">
+          <button class="btn-primary btn-sm" id="btn-log-session" style="margin-bottom:14px;">+ Log a Session</button>
+          <div class="log-list" id="modal-log-list"></div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <div class="completion-check">
+          <input type="checkbox" id="modal-complete-check" class="cyber-check" />
+          <label for="modal-complete-check" class="cyber-check-label">Mark as Complete</label>
+        </div>
+        <button class="btn-primary" id="btn-open-focus-from-node">⏱ Focus on this Node</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ MODAL: LOG SESSION ════════════════════════════════════════════════ -->
+  <div class="modal-overlay" id="modal-log" role="dialog" aria-modal="true">
+    <div class="modal modal-log-session">
+      <button class="modal-close" id="modal-log-close">✕</button>
+      <h2 class="modal-title">Log Study Session</h2>
+      <div class="form-group">
+        <label class="form-label">Node</label>
+        <select id="log-node-select" class="select-input"></select>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Hours</label>
+          <input type="number" id="log-hours-input" class="text-input" value="1" min="0.25" max="12" step="0.25" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Session Type</label>
+          <select id="log-type-select" class="select-input">
+            <option value="Study">📚 Study</option>
+            <option value="Coding">💻 Coding</option>
+            <option value="Practice">🎯 Practice</option>
+            <option value="Mock">🎤 Mock</option>
+            <option value="Review">🔍 Review</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Description (optional)</label>
+        <input type="text" id="log-desc-input" class="text-input" placeholder="What did you accomplish?" />
+      </div>
+      <div class="form-actions">
+        <button class="btn-ghost" id="log-cancel">Cancel</button>
+        <button class="btn-primary" id="log-submit">Log Session</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ MODAL: ADD PROBLEM ════════════════════════════════════════════════ -->
+  <div class="modal-overlay" id="modal-problem" role="dialog" aria-modal="true">
+    <div class="modal modal-log-session">
+      <button class="modal-close" id="modal-problem-close">✕</button>
+      <h2 class="modal-title">Add USACO / DSA Problem</h2>
+      <div class="form-group">
+        <label class="form-label">Problem Name</label>
+        <input type="text" id="prob-name" class="text-input" placeholder="e.g. Milking Order" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">URL (optional)</label>
+        <input type="url" id="prob-url" class="text-input" placeholder="https://usaco.org/..." />
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Level</label>
+          <select id="prob-level" class="select-input">
+            <option value="Bronze">Bronze</option>
+            <option value="Silver">Silver</option>
+            <option value="Gold" selected>Gold</option>
+            <option value="Platinum">Platinum</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Category</label>
+          <select id="prob-category" class="select-input">
+            <option>Graph</option><option>DP</option><option>Prefix Sum</option>
+            <option>Sorting</option><option>Two Pointers</option><option>Segment Tree</option>
+            <option>DSU</option><option>BFS/DFS</option><option>Greedy</option><option>General</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Difficulty (1-5)</label>
+          <input type="number" id="prob-difficulty" class="text-input" value="3" min="1" max="5" />
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn-ghost" id="prob-cancel">Cancel</button>
+        <button class="btn-primary" id="prob-submit">Add Problem</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ MODAL: ADD INTERVIEW ══════════════════════════════════════════════ -->
+  <div class="modal-overlay" id="modal-interview" role="dialog" aria-modal="true">
+    <div class="modal modal-log-session">
+      <button class="modal-close" id="modal-interview-close">✕</button>
+      <h2 class="modal-title">Log Mock Interview</h2>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Type</label>
+          <select id="int-type" class="select-input">
+            <option value="DSA">DSA</option>
+            <option value="LLD">LLD</option>
+            <option value="HLD">HLD</option>
+            <option value="Behavioral">Behavioral</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Interviewer</label>
+          <select id="int-interviewer" class="select-input">
+            <option value="AI">AI</option>
+            <option value="Peer">Peer</option>
+            <option value="Mentor">Mentor</option>
+            <option value="Self">Self</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Score (1–10)</label>
+          <input type="number" id="int-score" class="text-input" value="7" min="1" max="10" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Feedback / Notes</label>
+        <textarea id="int-feedback" class="notes-textarea" style="height:100px;" placeholder="What went well? What to improve?"></textarea>
+      </div>
+      <div class="form-actions">
+        <button class="btn-ghost" id="int-cancel">Cancel</button>
+        <button class="btn-primary" id="int-submit">Save Interview</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ MODAL: ADD CF RATING ══════════════════════════════════════════════ -->
+  <div class="modal-overlay" id="modal-cf" role="dialog" aria-modal="true">
+    <div class="modal modal-log-session">
+      <button class="modal-close" id="modal-cf-close">✕</button>
+      <h2 class="modal-title">Add Codeforces Rating</h2>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Rating</label>
+          <input type="number" id="cf-rating-input" class="text-input" placeholder="e.g. 1450" min="0" max="4000" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Contest Name</label>
+          <input type="text" id="cf-contest-input" class="text-input" placeholder="e.g. Codeforces Round 950" />
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn-ghost" id="cf-cancel">Cancel</button>
+        <button class="btn-primary" id="cf-submit">Save Rating</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ BOSS DEFEAT OVERLAY ═══════════════════════════════════════════════ -->
+  <div class="boss-overlay" id="boss-overlay">
+    <div class="boss-content">
+      <div class="boss-explosion" id="boss-explosion"></div>
+      <div class="boss-text">NODE</div>
+      <div class="boss-text-big">CONQUERED</div>
+      <div class="boss-star">⬡</div>
+    </div>
+  </div>
+
+  <!-- ═══ TOAST NOTIFICATION ════════════════════════════════════════════════ -->
+  <div class="toast" id="toast"></div>
+
+  <!-- ═══ JS MODULES ════════════════════════════════════════════════════════ -->
+  <script src="js/app.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script src="js/roadmap.js"></script>
+  <script src="js/node-detail.js"></script>
+  <script src="js/analytics.js"></script>
+  <script src="js/focus.js"></script>
+  <script src="js/usaco.js"></script>
+  <script src="js/interviews.js"></script>
+</body>
+</html>
